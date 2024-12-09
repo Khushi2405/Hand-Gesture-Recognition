@@ -106,7 +106,7 @@ See the [Getting Started Guide](https://docs.espressif.com/projects/esp-idf/en/l
 
 The `svm.ipynb` notebook generates a confusion matrix for gesture classification:
 
-![Confusion Matrix Example](https://drive.google.com/file/d/1MifsoRsFKQ49JzB8qp5iHZU3-iJHCoZE/view?usp=sharing)
+![Confusion Matrix Example](https://drive.google.com/uc?id=1MifsoRsFKQ49JzB8qp5iHZU3-iJHCoZE)
 
 
 ## Troubleshooting
