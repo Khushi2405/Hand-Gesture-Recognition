@@ -13,9 +13,11 @@ warnings.filterwarnings("ignore", category=UserWarning, message=".*does not have
 esp32_port = 'COM10'  # Change this to your ESP32 port
 baud_rate = 115200
 ser = serial.Serial(esp32_port, baud_rate, timeout=1)
+
 # Load the saved model and feature columns
 svm_model = joblib.load('../models/gesture_svm_model.pkl')
 feature_columns = joblib.load('../models/gesture_feature_columns.pkl')
+
 time.sleep(1)  # Wait for the connection to establish
 print("All connections established")
 
@@ -54,6 +56,7 @@ def combine_data(filepath):
 
     try:
         with open(filepath, 'r') as file:
+
             # Process the file (example: reading the content)
             data = pd.read_csv(file)
     
@@ -92,7 +95,6 @@ def combine_data(filepath):
                 'Gyro_Z_min': data['Gyro_Z'].min(),
                 'Gyro_Z_max': data['Gyro_Z'].max()
             }
-
             return features
 
     except FileNotFoundError:
@@ -115,13 +117,17 @@ def predict_gesture_with_undetected(input_row, model, feature_columns, confidenc
     Returns:
         str: The predicted gesture label or "undetected".
     """
+    
     # Convert the input row to a NumPy array if it's not already
     input_data = np.array(list(input_row.values())).reshape(1, -1)
+
     # Ensure the number of features matches the training data
     if input_data.shape[1] != len(feature_columns):
         raise ValueError(f"Input data must have {len(feature_columns)} features. Got {input_data.shape[1]}.")
+    
     probabilities = model.predict_proba(input_data)  # Shape: [n_samples, n_classes]
     max_confidence = np.max(probabilities, axis=1)
+    
     # Check if confidence is below the threshold
     if max_confidence < confidence_threshold:
         return "undetected"
