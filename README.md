@@ -105,6 +105,30 @@ Enter `idf.py -p PORT flash monitor` to build, flash and monitor the project.
 
 See the [Getting Started Guide](https://docs.espressif.com/projects/esp-idf/en/latest/get-started/index.html) for full steps to configure and use ESP-IDF to build projects.
 
+## Script Overview
+
+This project script facilitates hand gesture recognition using IMU (Inertial Measurement Unit) data collected from an ESP32 microcontroller. Below is a concise breakdown of its core functionality:
+
+1. **Serial Communication Setup**  
+   - Establishes a connection with the ESP32 via a specified serial port to receive IMU sensor data (accelerometer and gyroscope).
+
+2. **Data Collection**  
+   - Captures IMU data for predefined gestures and logs it into CSV files for further analysis and training.
+
+3. **Data Preprocessing**  
+   - Normalizes IMU readings using mean and standard deviation.  
+   - Extracts statistical features (mean, standard deviation, min, max) for each sensor axis.
+
+4. **Gesture Prediction**  
+   - Utilizes a pre-trained Support Vector Machine (SVM) model to classify gestures.  
+   - Implements a confidence-based threshold to label uncertain predictions as "undetected."
+
+5. **Model Training**  
+   - A separate script is provided to train the SVM model using combined and preprocessed gesture data.  
+
+This system ensures reliable gesture recognition while enabling data logging for training and performance evaluation.
+
+
 ## 📊 Visualization Example
 
 The `svm.ipynb` notebook generates a confusion matrix for gesture classification with 100 % accuracy: 
