@@ -62,11 +62,12 @@ This project utilizes sensor data from an ESP32S3 microcontroller and MPU6050 IM
    - To run this example, you should have one ESP32, ESP32-S, ESP32-C or ESP32-H based development board as well as a MPU6050. MPU6050 is a inertial measurement unit, which contains a accelerometer, gyroscope as well as a magnetometer.
    - Connect your ESP32S3 and IMU sensor to your computer using a USB cable.
    - Ensure that the ESP32 is programmed to send IMU (Inertial Measurement Unit) data in the required format.
-   - Pin Assignment:
-  |                  | SDA             | SCL           |
-  | ---------------- | -------------- | -------------- |
-  | ESP I2C Master   | I2C_MASTER_SDA | I2C_MASTER_SCL |
-  | MPU9250 Sensor   | SDA            | SCL            |
+   
+#### Pin Assignment:
+|                  | SDA             | SCL           |
+| ---------------- | -------------- | -------------- |
+| ESP I2C Master   | I2C_MASTER_SDA | I2C_MASTER_SCL |
+| MPU9250 Sensor   | SDA            | SCL            |
 
 
 ### Install Required Libraries
