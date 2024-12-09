@@ -54,7 +54,6 @@ This project utilizes sensor data from an ESP32S3 microcontroller and MPU6050 IM
 4. **Evaluation**:  
    - The model is evaluated on the training data, and a confusion matrix is generated to visualize performance.
 
----
 
 ## 🔧 Setup Instructions
 
@@ -69,7 +68,7 @@ This project utilizes sensor data from an ESP32S3 microcontroller and MPU6050 IM
 | ---------------- | -------------- | -------------- |
 | ESP I2C Master   | I2C_MASTER_SDA | I2C_MASTER_SCL |
 | MPU9250 Sensor   | SDA            | SCL            |
----
+
 
 ### Install Required Libraries
 
@@ -94,7 +93,6 @@ baud_rate = 115200
 #### Initialize serial connection
 ser = serial.Serial(esp32_port, baud_rate, timeout=1)
 ```
----
 
 ### Build and Flash
 
@@ -110,7 +108,6 @@ The `svm.ipynb` notebook generates a confusion matrix for gesture classification
 
 ![Confusion Matrix Example](https://drive.google.com/file/d/1MifsoRsFKQ49JzB8qp5iHZU3-iJHCoZE/view?usp=sharing)
 
----
 
 ## Troubleshooting
 
@@ -120,12 +117,10 @@ The `svm.ipynb` notebook generates a confusion matrix for gesture classification
 - Extend support for additional gestures.
 - Optimize for deployment on resource-constrained devices.
 
----
 
 ## 🤝 Contributing
 Contributions are welcome! Please submit a pull request or raise an issue for any suggestions or bugs.
 
----
 
 ## 🛡️ License
 This project is licensed under the [MIT License](LICENSE).
