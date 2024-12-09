@@ -1,35 +1,99 @@
-<!-- | Supported Targets | ESP32 | ESP32-C3 | ESP32-C6 | ESP32-H2 | ESP32-P4 | ESP32-S2 | ESP32-S3 |
-| ----------------- | ----- | -------- | -------- | -------- | -------- | -------- | -------- |
-
-# I2C Simple Example
-
-(See the README.md file in the upper level 'examples' directory for more information about examples.)
+# Hand Gesture Recognition Using ESP32S3 and SVM model
 
 ## Overview
 
-This example demonstrates basic usage of I2C driver by reading and writing from a I2C connected sensor:
+This project utilizes sensor data from an ESP32S3 microcontroller and MPU6050 IMU sensor to recognize hand gestures using a pre-trained Support Vector Machine (SVM) model. The system collects accelerometer and gyroscope data, processes it to extract features, and predicts the gesture performed using a trained machine-learning model.
 
-If you have a new I2C application to go (for example, read the temperature data from external sensor with I2C interface), try this as a basic template, then add your own code.
+## Features
 
-## How to use example
+- **IMU Data Collection**: Collect motion data (accelerometer and gyroscope) from ESP32 and MPU6050 IMU sensors.
+- **Data Normalization and Processing**: Normalize and preprocess the collected data to ensure consistency.
+- **Feature Extraction**: Extract statistical features such as mean, standard deviation, min, and max for gesture recognition.
+- **Gesture Prediction**: Classify gestures using a trained Support Vector Machine (SVM) model, including a confidence-based "undetected" category for low-confidence predictions.
+- **Data Logging**: Log collected data to CSV files for further analysis and model improvement.
 
-### Hardware Required
+## 📁 Project Structure
 
-To run this example, you should have one ESP32, ESP32-S, ESP32-C or ESP32-H based development board as well as a MPU9250. MPU9250 is a inertial measurement unit, which contains a accelerometer, gyroscope as well as a magnetometer, for more information about it, you can read the [datasheet of the MPU9250 sensor](https://invensense.tdk.com/wp-content/uploads/2015/02/PS-MPU-9250A-01-v1.1.pdf).
+- **`data`**  
+  Contains input data collected for real time gestures which is then picked up and for feature extraction before predicting
+
+- **`main`**  
+  Core logic for the ESP32, including:
+  - `i2c_simple_main.c`: Main code for handling sensors and data collection.
+  - `idf_component.yml`: ESP-IDF configuration file.
+
+- **`managed_components`**  
+  Includes reusable libraries or components for the project.
+
+- **`models`**  
+  Stores machine learning artifacts:
+  - `gesture_feature_columns.pkl`: Metadata for the feature set.
+  - `gesture_svm_model.pkl`: Trained SVM model for gesture classification.
+
+- **`notebook`**  
+  - `svm.ipynb`: Notebook for SVM training, evaluation, and visualization.
+
+- **`scripts`**  
+  Utility scripts for automation:
+  - `run.py`: Main script to run.
+
+## 🔧 Training the Model
+
+1. **Data Collection**:  
+   Each gesture's data is collected using ESP32 sensors. The `combine_data` function is used to merge data from different gestures into a single dataset.
+
+2. **Feature Extraction**:  
+   Statistical features such as mean, standard deviation, and variance are extracted from the collected data.
+
+3. **Model Training**:  
+   - The aggregated dataset (`combined_gesture_data.csv`) is loaded.
+   - Features (`X`) and labels (`y`) are separated.
+   - An SVM model is trained using the Scikit-learn `SVC` class with a linear kernel.
+   - The trained model is saved as `gesture_svm_model.pkl`.
+
+4. **Evaluation**:  
+   - The model is evaluated on the training data, and a confusion matrix is generated to visualize performance.
+
+---
+
+## 🔧 Setup Instructions
+
+### 🖥️ Hardware Setup
+1. **Connect the ESP32S3 Microcontroller**:
+   - To run this example, you should have one ESP32, ESP32-S, ESP32-C or ESP32-H based development board as well as a MPU6050. MPU6050 is a inertial measurement unit, which contains a accelerometer, gyroscope as well as a magnetometer.
+   - Connect your ESP32S3 and IMU sensor to your computer using a USB cable.
+   - Ensure that the ESP32 is programmed to send IMU (Inertial Measurement Unit) data in the required format.  
 
 #### Pin Assignment:
-
-**Note:** The following pin assignments are used by default, you can change these in the `menuconfig` .
-
 |                  | SDA             | SCL           |
 | ---------------- | -------------- | -------------- |
 | ESP I2C Master   | I2C_MASTER_SDA | I2C_MASTER_SCL |
 | MPU9250 Sensor   | SDA            | SCL            |
+---
 
+### Install Required Libraries
 
-For the actual default value of `I2C_MASTER_SDA` and `I2C_MASTER_SCL` see `Example Configuration` in `menuconfig`.
+To install the necessary libraries for the project, run the following command:
 
-**Note:** There's no need to add an external pull-up resistors for SDA/SCL pin, because the driver will enable the internal pull-up resistors.
+```bash
+pip install numpy pandas joblib pyserial scikit-learn
+```
+
+### ⚙️ Update Serial Port
+1. Locate the `esp32_port` variable in the relevant script.  
+2. Update the variable to match your ESP32's serial port:  
+   - For **Windows**, use `COMx` (e.g., `COM10`). This can be found in device manager under ports  
+   - For **Linux/Mac**, use `/dev/ttyUSBx` or `/dev/ttyACMx` (e.g., `/dev/ttyUSB0`).
+3. To establish a serial connection with the ESP32 for collecting sensor data:
+
+python
+#### Update the ESP32 serial port
+esp32_port = 'COM10'  # Replace 'COM10' with your ESP32's port
+baud_rate = 115200
+
+#### Initialize serial connection
+ser = serial.Serial(esp32_port, baud_rate, timeout=1)
+---
 
 ### Build and Flash
 
@@ -39,14 +103,28 @@ Enter `idf.py -p PORT flash monitor` to build, flash and monitor the project.
 
 See the [Getting Started Guide](https://docs.espressif.com/projects/esp-idf/en/latest/get-started/index.html) for full steps to configure and use ESP-IDF to build projects.
 
-## Example Output
+## 📊 Visualization Example
 
-```bash
-I (328) i2c-simple-example: I2C initialized successfully
-I (338) i2c-simple-example: WHO_AM_I = 71
-I (338) i2c-simple-example: I2C de-initialized successfully
-```
+The `svm.ipynb` notebook generates a confusion matrix for gesture classification:
+
+![Confusion Matrix Example](https://drive.google.com/file/d/1MifsoRsFKQ49JzB8qp5iHZU3-iJHCoZE/view?usp=sharing)
+
+---
 
 ## Troubleshooting
 
 (For any technical queries, please open an [issue](https://github.com/espressif/esp-idf/issues) on GitHub. We will get back to you as soon as possible.) -->
+
+## 💡 Future Work
+- Extend support for additional gestures.
+- Optimize for deployment on resource-constrained devices.
+
+---
+
+## 🤝 Contributing
+Contributions are welcome! Please submit a pull request or raise an issue for any suggestions or bugs.
+
+---
+
+## 🛡️ License
+This project is licensed under the [MIT License](LICENSE).
