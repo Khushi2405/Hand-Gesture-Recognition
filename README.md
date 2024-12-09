@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project utilizes sensor data from an ESP32S3 microcontroller and MPU6050 IMU sensor to recognize hand gestures using a pre-trained Support Vector Machine (SVM) model. The system collects accelerometer and gyroscope data, processes it to extract features, and predicts the gesture performed using a trained machine-learning model.
+This project utilizes sensor data from an ESP32S3 microcontroller and MPU6050 IMU sensor to recognize hand gestures (left, right, up and down) using a pre-trained Support Vector Machine (SVM) model. The system collects accelerometer and gyroscope data, processes it to extract features, and predicts the gesture performed using a trained machine-learning model.
 
 ## Features
 
