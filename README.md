@@ -86,13 +86,14 @@ pip install numpy pandas joblib pyserial scikit-learn
    - For **Linux/Mac**, use `/dev/ttyUSBx` or `/dev/ttyACMx` (e.g., `/dev/ttyUSB0`).
 3. To establish a serial connection with the ESP32 for collecting sensor data:
 
-python
+```python
 #### Update the ESP32 serial port
 esp32_port = 'COM10'  # Replace 'COM10' with your ESP32's port
 baud_rate = 115200
 
 #### Initialize serial connection
 ser = serial.Serial(esp32_port, baud_rate, timeout=1)
+```
 ---
 
 ### Build and Flash
