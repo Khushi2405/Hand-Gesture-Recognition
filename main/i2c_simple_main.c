@@ -79,19 +79,18 @@ void app_main()
     uint8_t mpu6050_deviceid;
     mpu6050_acce_value_t acce;
     mpu6050_gyro_value_t gyro;
-    mpu6050_temp_value_t temp;
-    
+
     i2c_sensor_mpu6050_init();
-    
+
     ret = mpu6050_get_deviceid(mpu6050, &mpu6050_deviceid);
     if (ret != ESP_OK)
     {
         ESP_LOGE(TAG, "Failed to get MPU6050 device ID");
     }
-    
+
     vTaskDelay(1000 / portTICK_PERIOD_MS);
 
-    while(1) {  
+    while(1) {
             // Get IMU data
             ret = mpu6050_get_acce(mpu6050, &acce);
             if (ret != ESP_OK)
@@ -105,13 +104,13 @@ void app_main()
                 ESP_LOGE(TAG, "Failed to get gyroscope data");
             }
 
-            ESP_LOGI(TAG, "%.2f,%.2f,%.2f,%.2f,%.2f,%.2f\n", 
-               acce.acce_x, acce.acce_y, acce.acce_z, 
+            ESP_LOGI(TAG, "%.2f,%.2f,%.2f,%.2f,%.2f,%.2f\n",
+               acce.acce_x, acce.acce_y, acce.acce_z,
                gyro.gyro_x, gyro.gyro_y, gyro.gyro_z);
 
             fflush(stdout);
 
-            vTaskDelay(10 / portTICK_PERIOD_MS);  
+            vTaskDelay(10 / portTICK_PERIOD_MS);
         }
 
     mpu6050_delete(mpu6050);
