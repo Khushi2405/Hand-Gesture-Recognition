@@ -69,6 +69,9 @@ This project utilizes sensor data from an ESP32S3 microcontroller and MPU6050 IM
 | ESP I2C Master   | I2C_MASTER_SDA | I2C_MASTER_SCL |
 | MPU9250 Sensor   | SDA            | SCL            |
 
+### Install ESP-IDF framework 
+
+Refer ESP-IDF documentation for installation [ESP-IDF Documentation](https://docs.espressif.com/projects/esp-idf)
 
 ### Install Required Libraries
 
@@ -107,10 +110,6 @@ See the [Getting Started Guide](https://docs.espressif.com/projects/esp-idf/en/l
 The `svm.ipynb` notebook generates a confusion matrix for gesture classification with 100 % accuracy: 
 ![Confusion Matrix Example](https://drive.google.com/uc?id=1Ea7dtWFG_5feM92Y4wrROAV9xHWgKTLH)
 
-
-## Troubleshooting
-
-(For any technical queries, please open an [issue](https://github.com/espressif/esp-idf/issues) on GitHub. We will get back to you as soon as possible.) -->
 
 ## 💡 Future Work
 - Extend support for additional gestures.
