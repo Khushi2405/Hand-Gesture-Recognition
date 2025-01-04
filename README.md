@@ -134,6 +134,10 @@ This system ensures reliable gesture recognition while enabling data logging for
 The `svm.ipynb` notebook generates a confusion matrix for gesture classification with 100 % accuracy: 
 ![Confusion Matrix Example](https://drive.google.com/uc?id=1Ea7dtWFG_5feM92Y4wrROAV9xHWgKTLH)
 
+## Real-Time Demo 
+Watch the end-to-end demonstration of the project here:  
+https://drive.google.com/file/d/1zIL6T6kzbOcGUa23iA1yswMEDL8Qmy_u/view?usp=drive_link
+
 
 ## 💡 Future Work
 - Extend support for additional gestures.
@@ -143,6 +147,3 @@ The `svm.ipynb` notebook generates a confusion matrix for gesture classification
 ## 🤝 Contributing
 Contributions are welcome! Please submit a pull request or raise an issue for any suggestions or bugs.
 
-
-## 🛡️ License
-This project is licensed under the [MIT License](LICENSE).
